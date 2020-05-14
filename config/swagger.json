@@ -1,0 +1,328 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Regiolab API",
+    "description": "Look mom! I'm learning your reading preferences!",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Access Token",
+      "description": ""
+    },
+    {
+      "name": "Articles",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "ArticleListItem": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique id for this user",
+            "example": "5d49e11f600a423ffc0b1297"
+          },
+          "headline": {
+            "type": "string",
+            "description": "Headline of the article",
+            "example": "27 januari: Auschwitz bevrijd, internationale herdenking Holocaust"
+          },
+          "ankeiler": {
+            "type": "string",
+            "description": "Ankeiler of the article",
+            "example": "Op 27 januari 1945, precies 75 jaar geleden, bevrijden de Russen het concentratiekamp Auschwitz."
+          },
+          "lead": {
+            "type": "string",
+            "description": "Lead of the article",
+            "example": "Op 27 januari 1945, precies 75 jaar geleden, bevrijden de Russen het concentratiekamp Auschwitz. De naam Auschwitz wordt het symbool van de rassenwaan van de nazi's."
+          },
+          "pubDate": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Publishing date of the article",
+            "example": "2020-01-27T08:45:47.000Z"
+          },
+          "breakingNews": {
+            "type": "boolean",
+            "description": "Whether or not the article is breaking news",
+            "example": false
+          }
+        },
+        "required": [
+          "_id",
+          "headline",
+          "ankeiler",
+          "lead",
+          "pubDate",
+          "breakingNews"
+        ]
+      },
+      "ArticleDetails": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique id for this user",
+            "example": "5d49e11f600a423ffc0b1297"
+          },
+          "headline": {
+            "type": "string",
+            "description": "Headline of the article",
+            "example": "27 januari: Auschwitz bevrijd, internationale herdenking Holocaust"
+          },
+          "ankeiler": {
+            "type": "string",
+            "description": "Ankeiler of the article",
+            "example": "Op 27 januari 1945, precies 75 jaar geleden, bevrijden de Russen het concentratiekamp Auschwitz."
+          },
+          "lead": {
+            "type": "string",
+            "description": "Lead of the article",
+            "example": "Op 27 januari 1945, precies 75 jaar geleden, bevrijden de Russen het concentratiekamp Auschwitz. De naam Auschwitz wordt het symbool van de rassenwaan van de nazi's."
+          },
+          "pubDate": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Publishing date of the article",
+            "example": "2020-01-27T08:45:47.000Z"
+          },
+          "breakingNews": {
+            "type": "boolean",
+            "description": "Whether or not the article is breaking news",
+            "example": false
+          },
+          "body": {
+            "type": "string",
+            "description": "Body of the article",
+            "example": "<p>Het<a href=\"http://auschwitz.org/en/museum/news/\" target=\"_blank\"> concentratiekamp Auschwitz</a>&nbsp;is eigenlijk een verzameling van (sub)kampen en fabrieken waar de nazi's..."
+          }
+        },
+        "required": [
+          "_id",
+          "headline",
+          "ankeiler",
+          "lead",
+          "pubDate",
+          "breakingNews",
+          "body"
+        ]
+      },
+      "AccessTokenResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5kb2UiLCJzdWIiOiI1ZDM1ZDczZmU0YTY3NzVmYjQxZmE0ZjEiLCJpYXQiOjE1NjM5MTU0OTgsImV4cCI6MTU2MzkxNTc5OH0.qYejtBl1Tcv9IWgp9Ax5FiR6uT_W0VwizHkB-3S7_r0",
+            "description": "Access token that can be used to authenticate against the api"
+          },
+          "expires": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2019-09-01T22:12:08.882Z",
+            "description": "The expiry date of the access token"
+          }
+        },
+        "required": ["accessToken", "expires"]
+      }
+    }
+  },
+  "paths": {
+    "/articles": {
+      "get": {
+        "operationId": "getArticles",
+        "summary": "Get list of articles",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of articles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArticleListItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad user input"
+          }
+        },
+        "tags": ["Articles"]
+      }
+    },
+    "/articles/recommended": {
+      "get": {
+        "operationId": "getRecommendedArticles",
+        "summary": "Get list of recommended articles",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of articles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArticleListItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad user input"
+          }
+        },
+        "tags": ["Articles"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/articles/{id}": {
+      "get": {
+        "operationId": "getArticleDetails",
+        "summary": "Get article details",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "example": "5d49e11f600a423ffc0b1297",
+            "description": "Unique id of the article",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Full article object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad user input"
+          },
+          "404": {
+            "description": "No article found with this id"
+          }
+        },
+        "tags": ["Articles"]
+      }
+    },
+    "/articles/{id}/like": {
+      "post": {
+        "operationId": "likeArticle",
+        "summary": "Like an article",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "example": "5d49e11f600a423ffc0b1297",
+            "description": "Unique id of the article",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully liked Article"
+          },
+          "400": {
+            "description": "Bad user input"
+          },
+          "404": {
+            "description": "No article found with this id"
+          }
+        },
+        "tags": ["Articles"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/articles/{id}/dislike": {
+      "post": {
+        "operationId": "dislikeArticle",
+        "summary": "Dislike an article",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "example": "5d49e11f600a423ffc0b1297",
+            "description": "Unique id of the article",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully disliked Article"
+          },
+          "400": {
+            "description": "Bad user input"
+          },
+          "404": {
+            "description": "No article found with this id"
+          }
+        },
+        "tags": ["Articles"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/auth": {
+      "get": {
+        "operationId": "getAccessToken",
+        "summary": "Get an access token that can be used to authenticate against the api",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Access token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessTokenResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Access Token"]
+      }
+    }
+  }
+}
