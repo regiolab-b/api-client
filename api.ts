@@ -321,10 +321,11 @@ export const ArticlesApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * 
          * @summary Get list of articles
+         * @param {number} [limit] Max amount of articles to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getArticles: async (options: any = {}): Promise<RequestArgs> => {
+        getArticles: async (limit?: number, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/articles`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -334,6 +335,10 @@ export const ArticlesApiAxiosParamCreator = function (configuration?: Configurat
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
 
 
     
@@ -472,11 +477,12 @@ export const ArticlesApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Get list of articles
+         * @param {number} [limit] Max amount of articles to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArticles(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ArticleListItem>>> {
-            const localVarAxiosArgs = await ArticlesApiAxiosParamCreator(configuration).getArticles(options);
+        async getArticles(limit?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ArticleListItem>>> {
+            const localVarAxiosArgs = await ArticlesApiAxiosParamCreator(configuration).getArticles(limit, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -541,11 +547,12 @@ export const ArticlesApiFactory = function (configuration?: Configuration, baseP
         /**
          * 
          * @summary Get list of articles
+         * @param {number} [limit] Max amount of articles to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getArticles(options?: any): AxiosPromise<Array<ArticleListItem>> {
-            return ArticlesApiFp(configuration).getArticles(options).then((request) => request(axios, basePath));
+        getArticles(limit?: number, options?: any): AxiosPromise<Array<ArticleListItem>> {
+            return ArticlesApiFp(configuration).getArticles(limit, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -603,12 +610,13 @@ export class ArticlesApi extends BaseAPI {
     /**
      * 
      * @summary Get list of articles
+     * @param {number} [limit] Max amount of articles to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ArticlesApi
      */
-    public getArticles(options?: any) {
-        return ArticlesApiFp(this.configuration).getArticles(options).then((request) => request(this.axios, this.basePath));
+    public getArticles(limit?: number, options?: any) {
+        return ArticlesApiFp(this.configuration).getArticles(limit, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

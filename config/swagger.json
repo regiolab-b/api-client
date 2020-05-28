@@ -7,23 +7,13 @@
     "contact": {}
   },
   "tags": [
-    {
-      "name": "Access Token",
-      "description": ""
-    },
-    {
-      "name": "Articles",
-      "description": ""
-    }
+    { "name": "Access Token", "description": "" },
+    { "name": "Articles", "description": "" }
   ],
   "servers": [],
   "components": {
     "securitySchemes": {
-      "bearer": {
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "type": "http"
-      }
+      "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
     },
     "schemas": {
       "ArticleListItem": {
@@ -144,7 +134,16 @@
       "get": {
         "operationId": "getArticles",
         "summary": "Get list of articles",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": 10,
+            "description": "Max amount of articles to return",
+            "schema": { "type": "number" }
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of articles",
@@ -152,16 +151,12 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ArticleListItem"
-                  }
+                  "items": { "$ref": "#/components/schemas/ArticleListItem" }
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad user input"
-          }
+          "400": { "description": "Bad user input" }
         },
         "tags": ["Articles"]
       }
@@ -178,23 +173,15 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ArticleListItem"
-                  }
+                  "items": { "$ref": "#/components/schemas/ArticleListItem" }
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad user input"
-          }
+          "400": { "description": "Bad user input" }
         },
         "tags": ["Articles"],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
+        "security": [{ "bearer": [] }]
       }
     },
     "/articles/{id}": {
@@ -208,9 +195,7 @@
             "in": "path",
             "example": "5d49e11f600a423ffc0b1297",
             "description": "Unique id of the article",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -218,18 +203,12 @@
             "description": "Full article object",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ArticleDetails"
-                }
+                "schema": { "$ref": "#/components/schemas/ArticleDetails" }
               }
             }
           },
-          "400": {
-            "description": "Bad user input"
-          },
-          "404": {
-            "description": "No article found with this id"
-          }
+          "400": { "description": "Bad user input" },
+          "404": { "description": "No article found with this id" }
         },
         "tags": ["Articles"]
       }
@@ -245,28 +224,16 @@
             "in": "path",
             "example": "5d49e11f600a423ffc0b1297",
             "description": "Unique id of the article",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successfully liked Article"
-          },
-          "400": {
-            "description": "Bad user input"
-          },
-          "404": {
-            "description": "No article found with this id"
-          }
+          "200": { "description": "Successfully liked Article" },
+          "400": { "description": "Bad user input" },
+          "404": { "description": "No article found with this id" }
         },
         "tags": ["Articles"],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
+        "security": [{ "bearer": [] }]
       }
     },
     "/articles/{id}/dislike": {
@@ -280,28 +247,16 @@
             "in": "path",
             "example": "5d49e11f600a423ffc0b1297",
             "description": "Unique id of the article",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successfully disliked Article"
-          },
-          "400": {
-            "description": "Bad user input"
-          },
-          "404": {
-            "description": "No article found with this id"
-          }
+          "200": { "description": "Successfully disliked Article" },
+          "400": { "description": "Bad user input" },
+          "404": { "description": "No article found with this id" }
         },
         "tags": ["Articles"],
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
+        "security": [{ "bearer": [] }]
       }
     },
     "/auth": {
@@ -314,9 +269,7 @@
             "description": "Access token",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessTokenResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/AccessTokenResponse" }
               }
             }
           }
