@@ -165,7 +165,16 @@
       "get": {
         "operationId": "getRecommendedArticles",
         "summary": "Get list of recommended articles",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "example": 10,
+            "description": "Max amount of articles to return",
+            "schema": { "type": "number" }
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of articles",
